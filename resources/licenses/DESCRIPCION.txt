@@ -1,0 +1,9 @@
+Este "Trabajo Combinado" utiliza varias soluciones de código abierto, entre otras:
+- Componentes de Bouncy Castle para la firma electrónica (licencia: bouncycastle.txt).
+- Librerías Ministerio de Industria, Turismo y Comercio de España para firma digital (licencia: LGPL).
+- Utiliza el paquete(package) de la aplicación "firmador": ec.gov.informatica.firmadigital.keystore para interoperabilidad de sistemas operativos. (licencia: gnu.txt) 
+  el cual fue renombrado y modificado en el paquete: ec.gob.sri.comprobantes.util.key
+- Librerías de Apache Commons y xmlsec (licencia: Apache Software License)
+
+Adicionalmente se utiliza, librerías de un proveedor de certificados digitales, bajo los siguientes términos:
+- Librerías propietarias de ANF.ES para uso exclusivo para del SRI utilizadas en la firma digital con su token genérico.

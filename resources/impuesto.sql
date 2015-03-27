@@ -1,0 +1,3 @@
+Insert into IMPUESTO (CODIGO,TAIM_DES_IMP,TAIM_ESTADO) values (1,'RENTA','S');
+Insert into IMPUESTO (CODIGO,TAIM_DES_IMP,TAIM_ESTADO) values (2,'IVA','S');
+Insert into IMPUESTO (CODIGO,TAIM_DES_IMP,TAIM_ESTADO) values (3,'ICE','S');

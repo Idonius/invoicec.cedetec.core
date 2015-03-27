@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ds="http://www.w3.org/2000/09/xmldsig#" elementFormDefault="qualified">
+	<xsd:simpleType name="numeroRuc">
+		<xsd:annotation>
+			<xsd:documentation>Se detalla el numero de RUC del Contribuyente</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{10}001"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="idCliente">
+		<xsd:annotation>
+			<xsd:documentation>Se detalla el numero de RUC Cedula o Pasaporte del Comprador</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="13"/>
+			<xsd:pattern value="[0-9a-zA-Z]{0,13}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="numeroRucCedula">
+		<xsd:annotation>
+			<xsd:documentation>Se detalla el numero de RUC o cedula del Comprador</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="10"/>
+			<xsd:maxLength value="13"/>
+			<xsd:pattern value="[0-9]{10}"/>
+			<xsd:pattern value="[0-9]{10}001"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="fecha">
+		<xsd:annotation>
+			<xsd:documentation>Se detalla la fecha de uso del documento</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{2}/[0-9]{2}/[0-9]{4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="fechaAutorizacion">
+		<xsd:annotation>
+			<xsd:documentation>Se detalla la fecha de la autorizacion</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{2}/[0-9]{2}/[0-9]{4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="establecimiento">
+		<xsd:annotation>
+			<xsd:documentation>Se detalla el numero del establecimiento</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{3}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="puntoEmision">
+		<xsd:annotation>
+			<xsd:documentation>Se detalla el numero del punto de emision</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{3}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="secuencial">
+		<xsd:annotation>
+			<xsd:documentation>Se detalla el secuencial del documento</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="999999999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="documento">
+		<xsd:annotation>
+			<xsd:documentation>Se detalla el numero del documento</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{3}-[0-9]{3}-[0-9]{1,9}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="codTipoDoc">
+		<xsd:annotation>
+			<xsd:documentation>Se detalla el codigo del tipo de documento autorizado</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="5"/>
+			<xsd:maxInclusive value="5"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="codTipoDocModificado">
+		<xsd:annotation>
+			<xsd:documentation>Se detalla el codigo del tipo de documento autorizado</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="8"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="autorizacion">
+		<xsd:annotation>
+			<xsd:documentation>Corresponde al numero de autorizacion emitido por el sistema de Autorizacion de Comprobantes de Venta y Retencion
+                    </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="10"/>
+			<xsd:minLength value="3"/>
+			<xsd:pattern value="[0-9]{3,10}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ambiente">
+		<xsd:annotation>
+			<xsd:documentation>Desarrollo o produccion depende de en cual ambiente se genere el comprobante.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[1-2]{1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tipoEmision">
+		<xsd:annotation>
+			<xsd:documentation>Tipo de emision en el cual se genero el comprobante</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[1-3]{1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="detalle">
+		<xsd:annotation>
+			<xsd:documentation>Detalle de una nota de credito.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="motivoModificacion" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="infoTributaria">
+		<xsd:annotation>
+			<xsd:documentation>Contiene la informacion tributaria generica</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ambiente">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="1"/>
+						<xsd:enumeration value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="tipoEmision" type="tipoEmision"/>
+			<xsd:element name="razonSocial">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="300"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="nombreComercial" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="300"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ruc" type="numeroRuc"/>
+			<xsd:element name="claveAcceso">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="49"/>
+						<xsd:maxLength value="49"/>
+						<xsd:pattern value="[0-9]+"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="codDoc">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2"/>
+						<xsd:pattern value="[0-9]+"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="estab" type="establecimiento"/>
+			<xsd:element name="ptoEmi" type="puntoEmision"/>
+			<xsd:element name="secuencial">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:pattern value="[0-9]{9}"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="dirMatriz">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="300"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="impuesto">
+		<xsd:annotation>
+			<xsd:documentation>Contiene informacion de impuestos</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="codigo">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1"/>
+						<xsd:pattern value="[0-9]+"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="codigoPorcentaje">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:pattern value="[0-9]+"/>
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="4"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="tarifa" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="3"/>
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="baseImponible" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="14"/>
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="valor">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:totalDigits value="14"/>
+						<xsd:fractionDigits value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="notaDebito">
+		<xsd:annotation>
+			<xsd:documentation>Elemento que describe una nota de debito o credito</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="infoTributaria" type="infoTributaria"/>
+				<xsd:element name="infoNotaDebito">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="fechaEmision" type="fecha"/>
+							<xsd:element name="dirEstablecimiento" minOccurs="0">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:minLength value="1"/>
+										<xsd:maxLength value="300"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+							<xsd:element name="tipoIdentificacionComprador">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:pattern value="[0-9]{2}"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+							<xsd:element name="razonSocialComprador" minOccurs="0">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:minLength value="1"/>
+										<xsd:maxLength value="300"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+							<xsd:element name="identificacionComprador" type="idCliente"/>
+							<xsd:element name="contribuyenteEspecial" minOccurs="0">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:minLength value="3"/>
+										<xsd:maxLength value="5"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+							<xsd:element name="obligadoContabilidad" minOccurs="0">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:enumeration value="SI"/>
+										<xsd:enumeration value="NO"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+							<xsd:element name="rise" minOccurs="0">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:minLength value="1"/>
+										<xsd:maxLength value="40"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+							<xsd:element name="codDocModificado">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:pattern value="[0-9]{2}"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+							<xsd:element name="numDocModificado">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:pattern value="[0-9]{3}-[0-9]{3}-[0-9]{9}"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+							<xsd:element name="fechaEmisionDocSustento" type="fecha" minOccurs="0"/>
+							<xsd:element name="totalSinImpuestos">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:decimal">
+										<xsd:totalDigits value="14"/>
+										<xsd:fractionDigits value="2"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+							<xsd:element name="impuestos">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="impuesto" type="impuesto"
+											maxOccurs="unbounded"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="valorTotal">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:decimal">
+										<xsd:totalDigits value="14"/>
+										<xsd:fractionDigits value="2"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="motivos">
+					<xsd:complexType>
+						<xsd:sequence maxOccurs="unbounded">
+							<xsd:element name="motivo">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="razon">
+											<xsd:simpleType>
+												<xsd:restriction base="xsd:string">
+												<xsd:minLength value="1"/>
+												<xsd:maxLength value="300"/>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+										<xsd:element name="valor">
+											<xsd:simpleType>
+												<xsd:restriction base="xsd:decimal">
+												<xsd:totalDigits value="14"/>
+												<xsd:fractionDigits value="2"/>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="infoAdicional" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence maxOccurs="1">
+							<xsd:element name="campoAdicional" maxOccurs="15">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="nombre" use="required">
+												<xsd:simpleType>
+												<xsd:restriction base="xsd:string">
+												<xsd:minLength value="1"/>
+												<xsd:maxLength value="300"/>
+												</xsd:restriction>
+												</xsd:simpleType>
+											</xsd:attribute>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="id">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="comprobante"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="version" type="xsd:NMTOKEN" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
